@@ -149,13 +149,34 @@ void DeleteProduct(List<Product> products, List<ProductType> productTypes)
 
 void AddProduct(List<Product> products, List<ProductType> productTypes)
 {
-    throw new NotImplementedException();
+    Console.Clear();
+    Console.WriteLine("Add new Em's");
+
+    Console.WriteLine("Name Em");
+    string productName = Console.ReadLine();
+
+    Console.WriteLine("Price Em");
+    decimal productPrice = decimal.Parse(Console.ReadLine());
+
+
+    Console.WriteLine("Metal or Words?");
+    for (int i = 0; i < productTypes.Count; i++)
+    {
+        Console.WriteLine($"{i + 1}. {productTypes[i].Title}");
+    }
+    int productTypeId = int.Parse(Console.ReadLine());
+
+    Product newProduct = new Product
+    {
+        Name = productName,
+        Price = productPrice,
+        ProductTypeId = productTypeId
+    };
+
+    products.Add(newProduct);
+    Console.WriteLine("Thang addendumed!");
 }
 
-void UpdateProduct(List<Product> products, List<ProductType> productTypes)
-{
-    throw new NotImplementedException();
-}
 
 // don't move or change this!
 public partial class Program { }
