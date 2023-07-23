@@ -69,23 +69,23 @@ while (chosem != "E")
 4. Change em
 E. End it all");
     chosem = Console.ReadLine();
-    if (choice == "1")
+    if (chosem == "1")
     {
         DisplayAllProducts(products, productTypes);
     }
-    else if (choice == "2")
+    else if (chosem == "2")
     {
         DeleteProduct(products, productTypes);
     }
-    else if (choice == "3")
+    else if (chosem == "3")
     {
         AddProduct(products, productTypes);
     }
-    else if (choice == "4")
+    else if (chosem == "4")
     {
         UpdateProduct(products, productTypes);
     }
-    else if (choice == "E")
+    else if (chosem == "E")
     {
         Console.WriteLine("Bye Yall, good luck");
     }
@@ -120,17 +120,116 @@ void DisplayAllProducts(List<Product> products, List<ProductType> productTypes)
 
 void DeleteProduct(List<Product> products, List<ProductType> productTypes)
 {
-    throw new NotImplementedException();
+    Console.Clear();
+    bool prodDEL = false;
+    while (prodDEL == false)
+    {
+        Console.WriteLine("Please choose an item to delete:");
+        for (int i = 0; i < products.Count; i++)
+        {
+            Product product = products[i];
+            ProductType productTypeQuery = productTypes.First(productType => product.ProductTypeId == productType.Id);
+            Console.WriteLine($"{i + 1}. {productTypeQuery.Title}: {product.Name}");
+        };
+        string choice = Console.ReadLine();
+        try
+        {
+            int productChoice = int.Parse(choice);
+            int choiceIndex = productChoice - 1;
+            Console.WriteLine($"You have removed {products[choiceIndex].Name}");
+            products.RemoveAt(choiceIndex);
+            prodDEL = true;
+        }
+        catch (Exception)
+        {
+            Console.WriteLine("Please enter a valid number");
+        }
+    }
 }
 
 void AddProduct(List<Product> products, List<ProductType> productTypes)
 {
-    throw new NotImplementedException();
+    Console.Clear();
+    Console.WriteLine("Add new Em's");
+
+    Console.WriteLine("Name Em");
+    string productName = Console.ReadLine();
+
+    Console.WriteLine("Price Em");
+    decimal productPrice = decimal.Parse(Console.ReadLine());
+
+
+    Console.WriteLine("Metal or Words?");
+    for (int i = 0; i < productTypes.Count; i++)
+    {
+        Console.WriteLine($"{i + 1}. {productTypes[i].Title}");
+    }
+    int productTypeId = int.Parse(Console.ReadLine());
+
+    Product newProduct = new Product
+    {
+        Name = productName,
+        Price = productPrice,
+        ProductTypeId = productTypeId
+    };
+
+    products.Add(newProduct);
+    Console.WriteLine("Thang addendumed!");
 }
 
 void UpdateProduct(List<Product> products, List<ProductType> productTypes)
 {
-    throw new NotImplementedException();
+    Console.Clear();
+    Console.WriteLine("Update Em");
+    for (int i = 0; i < products.Count; i++)
+    {
+        Console.WriteLine($"{i + 1}. {products[i].Name}");
+    }
+
+    int choice = int.Parse(Console.ReadLine());
+    Product selectedProduct = products[choice - 1];
+
+    Console.WriteLine("Re-name Em");
+    string newName = Console.ReadLine();
+    if (string.IsNullOrEmpty(newName))
+    {
+        // do nothing
+    }
+    else
+    {
+        selectedProduct.Name = newName;
+        Console.WriteLine($"Name is {newName}");
+    }
+
+    Console.WriteLine("Re-price Em");
+    string priceString = Console.ReadLine();
+    if (string.IsNullOrEmpty(priceString))
+    {
+        // do nothing
+    }
+    else
+    {
+        decimal newPrice = decimal.Parse(priceString);
+        selectedProduct.Price = newPrice;
+        Console.WriteLine($"Price is {newPrice}");
+    }
+
+    Console.WriteLine("Type Em");
+    for (int i = 0; i < productTypes.Count; i++)
+    {
+        Console.WriteLine($"{i + 1}. {productTypes[i].Title}");
+    }
+    string productTypeIdString = Console.ReadLine();
+    if (string.IsNullOrEmpty(productTypeIdString))
+    {
+        // do nothing
+    }
+    else
+    {
+        int newProductTypeId = int.Parse(productTypeIdString);
+        selectedProduct.ProductTypeId = newProductTypeId;
+    }
+    Console.WriteLine("Should've got it right the first time!");
 }
 
 // don't move or change this!
