@@ -69,23 +69,23 @@ while (chosem != "E")
 4. Change em
 E. End it all");
     chosem = Console.ReadLine();
-    if (choice == "1")
+    if (chosem == "1")
     {
         DisplayAllProducts(products, productTypes);
     }
-    else if (choice == "2")
+    else if (chosem == "2")
     {
         DeleteProduct(products, productTypes);
     }
-    else if (choice == "3")
+    else if (chosem == "3")
     {
         AddProduct(products, productTypes);
     }
-    else if (choice == "4")
+    else if (chosem == "4")
     {
         UpdateProduct(products, productTypes);
     }
-    else if (choice == "E")
+    else if (chosem == "E")
     {
         Console.WriteLine("Bye Yall, good luck");
     }
@@ -120,7 +120,31 @@ void DisplayAllProducts(List<Product> products, List<ProductType> productTypes)
 
 void DeleteProduct(List<Product> products, List<ProductType> productTypes)
 {
-    throw new NotImplementedException();
+    Console.Clear();
+    bool prodDEL = false;
+    while (prodDEL == false)
+    {
+        Console.WriteLine("Please choose an item to delete:");
+        for (int i = 0; i < products.Count; i++)
+        {
+            Product product = products[i];
+            ProductType productTypeQuery = productTypes.First(productType => product.ProductTypeId == productType.Id);
+            Console.WriteLine($"{i + 1}. {productTypeQuery.Title}: {product.Name}");
+        };
+        string choice = Console.ReadLine();
+        try
+        {
+            int productChoice = int.Parse(choice);
+            int choiceIndex = productChoice - 1;
+            Console.WriteLine($"You have removed {products[choiceIndex].Name}");
+            products.RemoveAt(choiceIndex);
+            prodDEL = true;
+        }
+        catch (Exception)
+        {
+            Console.WriteLine("Please enter a valid number");
+        }
+    }
 }
 
 void AddProduct(List<Product> products, List<ProductType> productTypes)
