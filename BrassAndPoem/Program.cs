@@ -177,6 +177,60 @@ void AddProduct(List<Product> products, List<ProductType> productTypes)
     Console.WriteLine("Thang addendumed!");
 }
 
+void UpdateProduct(List<Product> products, List<ProductType> productTypes)
+{
+    Console.Clear();
+    Console.WriteLine("Update Em");
+    for (int i = 0; i < products.Count; i++)
+    {
+        Console.WriteLine($"{i + 1}. {products[i].Name}");
+    }
+
+    int choice = int.Parse(Console.ReadLine());
+    Product selectedProduct = products[choice - 1];
+
+    Console.WriteLine("Re-name Em");
+    string newName = Console.ReadLine();
+    if (string.IsNullOrEmpty(newName))
+    {
+        // do nothing
+    }
+    else
+    {
+        selectedProduct.Name = newName;
+        Console.WriteLine($"Name is {newName}");
+    }
+
+    Console.WriteLine("Re-price Em");
+    string priceString = Console.ReadLine();
+    if (string.IsNullOrEmpty(priceString))
+    {
+        // do nothing
+    }
+    else
+    {
+        decimal newPrice = decimal.Parse(priceString);
+        selectedProduct.Price = newPrice;
+        Console.WriteLine($"Price is {newPrice}");
+    }
+
+    Console.WriteLine("Type Em");
+    for (int i = 0; i < productTypes.Count; i++)
+    {
+        Console.WriteLine($"{i + 1}. {productTypes[i].Title}");
+    }
+    string productTypeIdString = Console.ReadLine();
+    if (string.IsNullOrEmpty(productTypeIdString))
+    {
+        // do nothing
+    }
+    else
+    {
+        int newProductTypeId = int.Parse(productTypeIdString);
+        selectedProduct.ProductTypeId = newProductTypeId;
+    }
+    Console.WriteLine("Should've got it right the first time!");
+}
 
 // don't move or change this!
 public partial class Program { }
